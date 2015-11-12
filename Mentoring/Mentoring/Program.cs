@@ -18,8 +18,6 @@
 
         public static int Main()
         {
-            Console.WriteLine("Thread Start/Stop/Join Sample");
-
             var oThread = new Thread(Beta);
             oThread.Start();
 

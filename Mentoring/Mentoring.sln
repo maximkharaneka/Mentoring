@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mentoring", "Mentoring\Mentoring.csproj", "{1BEED6CA-0F41-4AE5-A90A-28C50131D40E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01Threads", "Mentoring\01Threads.csproj", "{1BEED6CA-0F41-4AE5-A90A-28C50131D40E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Multithreading", "Multithreading", "{80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02Threads", "02Threads\02Threads.csproj", "{6984BF26-A2D2-4603-8699-1F5438CF2542}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,16 @@ Global
 		{1BEED6CA-0F41-4AE5-A90A-28C50131D40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BEED6CA-0F41-4AE5-A90A-28C50131D40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BEED6CA-0F41-4AE5-A90A-28C50131D40E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6984BF26-A2D2-4603-8699-1F5438CF2542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6984BF26-A2D2-4603-8699-1F5438CF2542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6984BF26-A2D2-4603-8699-1F5438CF2542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6984BF26-A2D2-4603-8699-1F5438CF2542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1BEED6CA-0F41-4AE5-A90A-28C50131D40E} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
+		{6984BF26-A2D2-4603-8699-1F5438CF2542} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
 	EndGlobalSection
 EndGlobal
