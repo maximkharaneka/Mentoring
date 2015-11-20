@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.1_Synchronization", "03.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.2_Synchronization", "03.2_Synchronization\03.2_Synchronization.csproj", "{8663B2B9-70FB-4AFB-920C-C5D5BDC2BF66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.2_Asynchronous", "04.2_Asynchronous\04.2_Asynchronous.csproj", "{82EA41E4-F0BE-41EF-A623-418914C2E48C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{8663B2B9-70FB-4AFB-920C-C5D5BDC2BF66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8663B2B9-70FB-4AFB-920C-C5D5BDC2BF66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8663B2B9-70FB-4AFB-920C-C5D5BDC2BF66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82EA41E4-F0BE-41EF-A623-418914C2E48C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EA41E4-F0BE-41EF-A623-418914C2E48C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82EA41E4-F0BE-41EF-A623-418914C2E48C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82EA41E4-F0BE-41EF-A623-418914C2E48C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 		{C40FE486-8928-4319-A11C-0A4C65526C99} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
 		{793F4567-6BC4-4C7D-A49B-22CC95281979} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
 		{8663B2B9-70FB-4AFB-920C-C5D5BDC2BF66} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
+		{82EA41E4-F0BE-41EF-A623-418914C2E48C} = {80CEA1EB-190F-4CE4-9614-3E2747EBF6E7}
 	EndGlobalSection
 EndGlobal
