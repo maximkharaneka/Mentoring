@@ -14,12 +14,14 @@ namespace _03._2_Synchronization
                 {
                     Console.WriteLine("Runned Successfuly");
                     Console.ReadLine();
+                    mutex.ReleaseMutex();
                 }
                 else
                 {
                     Console.WriteLine("Already runned");
                     // Console.ReadLine();
                 }
+                
             }
         }
     }
