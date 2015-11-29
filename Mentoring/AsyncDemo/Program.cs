@@ -10,54 +10,52 @@ namespace AsyncDemo
         private static void Main(string[] args)
         {
             var isCalculated = false;
-            var isTaskRunned = false;
-            var source = new CancellationTokenSource();
+            CancellationTokenSource source = null;
+            Task<int> task = null;
+
             while (!isCalculated)
             {
-                Console.WriteLine("Input n:");
+                Console.Write("Input n:");
                 var input = Console.ReadLine();
                 int n;
                 int.TryParse(input, out n);
-                if (isTaskRunned)
+
+                if (source != null)
                 {
                     source.Cancel();
                 }
-               
-                if (!isCalculated && !isTaskRunned)
+
+                source = new CancellationTokenSource();
+
+                if (!isCalculated)
                 {
-                    isTaskRunned = true;
-                    var task =
-                        Task.Run(() => GetNSum(n, source.Token), source.Token)
-                            .ContinueWith(x => isCalculated = true, source.Token)
-                            .ContinueWith(x => source = new CancellationTokenSource())
-                            .ContinueWith(x=>isTaskRunned=false);
+                    task = GetNSum(n, source.Token);
+                    task
+                        .ContinueWith(x => isCalculated = true, TaskContinuationOptions.NotOnCanceled);
                 }
             }
-            Console.WriteLine("Calculated!");
         }
 
-        private async Task TryTask()
+        private static async Task<int> GetNSum(int n, CancellationToken cancellationToken)
         {
-            var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromSeconds(1));
-            var task = Task.Run(() => GetNSum(1000, source.Token), source.Token);
-
-            // (A canceled task will raise an exception when awaited).
-            await task;
-        }
-
-        private static int GetNSum(int n, CancellationToken cancellationToken)
-        {
+            await Task.Delay(1);
             var result = 0;
-            for (var i = 0; i < n; i++)
+            try
             {
-                Thread.Sleep(100);
-                result += i;
-                if (i%100 == 0)
-                    cancellationToken.ThrowIfCancellationRequested();
+                for (var i = 0; i < n; i++)
+                {
+                    Thread.Sleep(100);
+                    result += i;
+                    if (i%10 == 0)
+                        cancellationToken.ThrowIfCancellationRequested();
+                }
+                Console.WriteLine();
+                Console.WriteLine($"The result is {result} for 0-{n} ");
             }
-            Console.WriteLine();
-            Console.WriteLine(result);
+            catch (Exception)
+            {
+                Console.WriteLine("Previous process was canceled");
+            }
             return result;
         }
     }
