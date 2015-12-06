@@ -23,7 +23,7 @@ namespace Sample03.E3SClient
 			Password = password;
 		}
 
-		public IEnumerable<T> SearchFTS<T>(string query, int start = 0, int limit = 0) where T : E3SEntity
+		public IEnumerable<T> SearchFTS<T>(List<Statement> query, int start = 0, int limit = 0) where T : E3SEntity
 		{
 			HttpClient client = CreateClient();
 			var requestGenerator = new FTSRequestGenerator(BaseAddress);
@@ -35,8 +35,7 @@ namespace Sample03.E3SClient
 			return JsonConvert.DeserializeObject<FTSResponse<T>>(resultString).items.Select(t => t.data);
 		}
 
-
-		public IEnumerable SearchFTS(Type type, string query, int start = 0, int limit = 0)
+        public IEnumerable SearchFTS(Type type, List<Statement> query, int start = 0, int limit = 0)
 		{
 			HttpClient client = CreateClient();
 			var requestGenerator = new FTSRequestGenerator(BaseAddress);

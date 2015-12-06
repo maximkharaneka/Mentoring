@@ -21,23 +21,17 @@ namespace Sample03.E3SClient
 			BaseAddress = baseAddress;
 		}
 
-		public Uri GenerateRequestUrl<T>(string query = "*", int start = 0, int limit = 10)
-		{
-			return GenerateRequestUrl(typeof(T), query, start, limit);
-		}
-
-		public Uri GenerateRequestUrl(Type type, string query = "*", int start = 0, int limit = 10)
+        public Uri GenerateRequestUrl<T>(List<Statement> statements, int start = 0, int limit = 10)
+        {
+            return GenerateRequestUrl(typeof(T), statements, start, limit);
+        }
+        public Uri GenerateRequestUrl(Type type, List<Statement> statements, int start = 0, int limit = 10)
 		{
 			string metaTypeName = GetMetaTypeName(type);
 
 			var ftsQueryRequest = new FTSQueryRequest
 			{
-				Statements = new List<Statement>
-				{
-					new Statement {
-						Query = query
-					}
-				},
+				Statements = statements,
 				Start = start,
 				Limit = limit
 			};
