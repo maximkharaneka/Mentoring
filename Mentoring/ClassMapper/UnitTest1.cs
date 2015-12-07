@@ -12,56 +12,45 @@ namespace ClassMapper
     {
         public class Mapper<TSource, TDestination>
         {
-            Func<TSource, TDestination> mapFunction;
+            private Func<TSource, TDestination> mapFunction;
+
             internal Mapper(Func<TSource, TDestination> func)
             {
                 mapFunction = func;
             }
+
             public TDestination Map(TSource source)
             {
                 return mapFunction(source);
             }
         }
+
         public class MappingGenerator
         {
             public Mapper<TSource, TDestination> Generate<TSource, TDestination>()
             {
-                var sourceParam = Expression.Parameter(typeof(TSource));
-                var destParam = Expression.Parameter(typeof(TDestination));
-                var typeDest = typeof(TDestination);
+                var sourceParam = Expression.Parameter(typeof (TSource));
 
-                var newExpression = Expression.New(typeDest);
+                var sourceProperties = typeof (TSource).GetFields();
+                var destProperties = typeof (TDestination).GetFields();
+
+                var newExpression = Expression.New(typeof (TDestination));
+
                 var list = new List<MemberBinding>();
-                var propertyInfos = typeDest.GetProperties();
-                //var propertyInfos = typeDest.GetProperties(BindingFlags.Instance |
-                //                    BindingFlags.Public |
-                //                    BindingFlags.SetProperty);
-                foreach (var propertyInfo in propertyInfos)
+
+                foreach (var destProperty in destProperties)
                 {
-                    Expression call;
-                    //= Expression.Call(
-                    //                       typeof(DictionaryExtension),
-                    //                       "GetValue", new[] { propertyInfo.PropertyType },
-                    //                       new Expression[]
-                    //                         {
-                    //                 dictParam,
-                    //                 Expression.Constant(propertyInfo.Name)
-                    //                         });
-                    call = Expression.Field(
-            Expression.Constant(destParam),
-            propertyInfo.Name);
-                    MemberBinding mb = Expression.Bind(propertyInfo.GetSetMethod(), call);
+                    Expression fieldProperty = Expression.Field(sourceParam,
+                        sourceProperties.FirstOrDefault(x => x.Name.Equals(destProperty.Name)));
+                    MemberBinding mb = Expression.Bind(destProperty, fieldProperty);
                     list.Add(mb);
                 }
 
-                //var ex = Expression.Lambda<Func<Dictionary<string, object>, T>>(
-                //                                  Expression.MemberInit(newExpression, list),
-                //                                  new[] { dictParam });
                 var mapFunction =
                     Expression.Lambda<Func<TSource, TDestination>>(
-                      Expression.MemberInit(newExpression, list),
-                    sourceParam
-                    );
+                        Expression.MemberInit(newExpression, list),
+                        sourceParam
+                        );
                 var compiled = mapFunction.Compile();
                 return new Mapper<TSource, TDestination>(compiled);
             }
@@ -69,13 +58,14 @@ namespace ClassMapper
 
         public class Foo
         {
-            public int i;
-            public string s;
+            public int i; // { get; set; }
+            public string s; //{ get; set; }
         }
+
         public class Bar
         {
-            public int i;
-            public string s;
+            public int i; //{ get; set; }
+            public string s; //{ get; set; }
         }
 
         [TestMethod]
@@ -85,10 +75,10 @@ namespace ClassMapper
             var mapper = mapGenerator.Generate<Foo, Bar>();
             var source = new Foo();
             source.i = 3;
-            source.s = "ss";
+            source.s = "abc";
             var dest = mapper.Map(source);
-            Assert.AreEqual(source.i,dest.i);
-            Assert.AreEqual(source.s,dest.s);
+            Assert.AreEqual(source.i, dest.i);
+            Assert.AreEqual(source.s, dest.s);
         }
     }
 }
