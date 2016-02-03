@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace Task.DB
 {
     using System;
@@ -29,5 +31,37 @@ namespace Task.DB
         public virtual Order Order { get; set; }
 
         public virtual Product Product { get; set; }
+    }
+
+
+    public class SerializationSurrogate : ISerializationSurrogate
+    {
+        public void GetObjectData(object obj, SerializationInfo info,
+            StreamingContext context)
+        {
+            var f = (Order_Detail)obj;
+            info.AddValue("OrderID", f.OrderID);
+            info.AddValue("ProductID", f.ProductID);
+            info.AddValue("UnitPrice", f.UnitPrice);
+            info.AddValue("Quantity", f.Quantity);
+            info.AddValue("Discount", f.Discount);
+            info.AddValue("Order", f.Order);
+            f.Product.Order_Details = null;
+            info.AddValue("Product", f.Product);
+        }
+
+        public object SetObjectData(object obj, SerializationInfo info,
+            StreamingContext context, ISurrogateSelector selector)
+        {
+            var f = (Order_Detail)obj;
+            f.OrderID = info.GetInt32("OrderID");
+            f.ProductID = info.GetInt32("ProductID");
+            f.UnitPrice = info.GetDecimal("UnitPrice");
+            f.Quantity = info.GetInt16("Quantity");
+            f.Discount = info.GetSingle("Discount");
+            f.Order = (Order)info.GetValue("Order", typeof(Order));
+            f.Product = (Product)info.GetValue("Product", typeof(Product));
+            return f;
+        }
     }
 }
