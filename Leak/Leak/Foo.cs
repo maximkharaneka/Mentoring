@@ -9,13 +9,10 @@ namespace Leak
 {
     class Foo
     {
-        public event EventHandler<Action> BarEvent;
-
-        public void Baz()
-        {
-
-        }
-
+        // A delegate type for hooking up change notifications.
+        public delegate void SomeEventHandler();
+        public event SomeEventHandler FooEvent;
+      
         public Foo()
         {
         }
